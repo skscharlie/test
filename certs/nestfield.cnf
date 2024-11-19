@@ -1,0 +1,18 @@
+[ req ]
+distinguished_name = req_distinguished_name
+x509_extensions = v3_ca # 사용할 확장 이름
+
+[ req_distinguished_name ]
+# 여기서 DN 필드를 정의합니다.
+C = US
+ST = California
+L = San Francisco
+O = Example Company
+CN = example.com
+
+[ v3_ca ]
+# CA 인증서에 필요한 확장
+basicConstraints = CA:TRUE
+keyUsage = cRLSign, keyCertSign
+subjectKeyIdentifier = hash
+
