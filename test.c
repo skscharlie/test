@@ -40,7 +40,6 @@ int main(int argc, char* argv[]) {
     const BIGNUM *pri_key_A = DH_get0_priv_key(dh) ;
     const BIGNUM *p = DH_get0_p(dh) ;
     const BIGNUM *g = DH_get0_g(dh) ;
-    printf("%s : %s : %s : %s\n", BN_bn2hex(p), BN_bn2hex(g), BN_bn2hex(pub_key_A), BN_bn2hex(pri_key_A)) ;
 
     DH *dhB = DH_new() ;
     DH_set0_pqg(dhB, p, NULL, g) ;
