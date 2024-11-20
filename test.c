@@ -18,6 +18,10 @@
 #include <openssl/engine.h>
 #include <openssl/err.h>
 
+/* Callback function that prints signature name and description
+ * @param sig: EVP_SIGNATURE structure containing signature details
+ * @param arg: Additional arguments (not used in this function)
+ */
 void my_callback(EVP_SIGNATURE *sig, void *arg) {
     printf("%s : %s\n", EVP_SIGNATURE_get0_name(sig), EVP_SIGNATURE_get0_description(sig)) ;
 }
@@ -29,6 +33,7 @@ void handleErrors() {
 }
 
 int main(int argc, char* argv[]) {
+    /* Create a new DH key exchange structure for party A */
     DH *dh = DH_new() ;
     if(dh == NULL) handleErrors() ;
 
@@ -36,9 +41,13 @@ int main(int argc, char* argv[]) {
 
     if(DH_generate_key(dh) != 1) handleErrors() ;
 
+    /* Get party A's public key from DH structure */
     const BIGNUM *pub_key_A = DH_get0_pub_key(dh) ;
+    /* Get party A's private key from DH structure */
     const BIGNUM *pri_key_A = DH_get0_priv_key(dh) ;
+    /* Get the prime modulus p from DH structure */
     const BIGNUM *p = DH_get0_p(dh) ;
+    /* Get the generator g from DH structure */
     const BIGNUM *g = DH_get0_g(dh) ;
 
     DH *dhB = DH_new() ;
